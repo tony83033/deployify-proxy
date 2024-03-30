@@ -1,7 +1,7 @@
 const express = require('express');
 const httpProxy = require('http-proxy');
 const app = express();
-const PORT  = 8000;
+const PORT  = 8001;
 
 const BASE_PATH = "https://deployify-project.s3.ap-south-1.amazonaws.com/__output";
 
@@ -10,7 +10,7 @@ app.use((req,res)=>{
     const hostname = req.hostname;
     const subdomain = hostname.split('.')[0];
 
-    const resolvesTo = `${BASE_PATH}/${subdomain}/index.html`;
+    const resolvesTo = `${BASE_PATH}/${subdomain}`;
 
    return proxy.web(req,res,{target:resolvesTo , changeOrigin: true});
 })
@@ -24,7 +24,7 @@ app.get("/sumit",(req,res)=>{
     // const hostname = req.hostname;
     // const subdomain = hostname.split('.')[0];
 
-    const resolvesTo = `https://deployify-project.s3.ap-south-1.amazonaws.com/__output/vite2/index.html`;
+    const resolvesTo = `https://deployify-project.s3.ap-south-1.amazonaws.com/__output/vite2/`;
 
    return proxy.web(req,res,{target:resolvesTo , changeOrigin: true});
 
@@ -33,14 +33,14 @@ app.get('/',(res,req)=>{
     return res.send("welcome to deployify");
 })
 
-// proxy.on('proxyReq',(proxyReq,req,res)=>{
-//     const url = req.url;
-//     if(url === '/'){
-//         proxyReq.path +='index.html';
+proxy.on('proxyReq',(proxyReq,req,res)=>{
+    const url = req.url;
+    if(url === '/'){
+        proxyReq.path +='index.html';
         
-//     }
+    }
     
-// })
+})
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
 })
