@@ -1,7 +1,7 @@
 const express = require('express');
 const httpProxy = require('http-proxy');
 const app = express();
-const PORT  = 8001;
+const PORT  = 3000;
 
 const BASE_PATH = "https://deployify-project.s3.ap-south-1.amazonaws.com/__output";
 
