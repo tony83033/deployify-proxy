@@ -10,7 +10,7 @@ app.use((req,res)=>{
     const hostname = req.hostname;
     const subdomain = hostname.split('.')[0];
 
-    const resolvesTo = `${BASE_PATH}/${subdomain}`;
+    const resolvesTo = `${BASE_PATH}/${subdomain}/index.html`;
 
    return proxy.web(req,res,{target:resolvesTo , changeOrigin: true});
 })
@@ -33,14 +33,14 @@ app.get('/',(res,req)=>{
     return res.send("welcome to deployify");
 })
 
-proxy.on('proxyReq',(proxyReq,req,res)=>{
-    const url = req.url;
-    if(url === '/'){
-        proxyReq.path +='index.html';
+// proxy.on('proxyReq',(proxyReq,req,res)=>{
+//     const url = req.url;
+//     if(url === '/'){
+//         proxyReq.path +='index.html';
         
-    }
+//     }
     
-})
+// })
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
 })
